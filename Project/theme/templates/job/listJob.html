@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{%load static%} 
+
+{% block content %}
+    <div class="container-fluid bg-white rounded inline-block px-4">
+        {% for obj in object_list %}
+        <h3>{{ obj.title }}</h3>
+        <p>{{ obj.description }}</p>
+        {% empty%}        
+        <div class="flex items-center gap-4">
+            <div>
+                <img src="" alt="sin logo">
+            </div>
+            <div>
+                <h4>Analista Gobierno de Datos</h4>
+                <span>Banco Bolivariano - Guayaquil, Guayas, Ecuador (Presencial)</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
