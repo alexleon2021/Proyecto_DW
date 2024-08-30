@@ -1,5 +1,8 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView
+
+from job.forms import JobForm
 from .models import *
 # Create your views here.
 
@@ -12,4 +15,10 @@ class ListJobsView(ListView):
         context = super().get_context_data(**kwargs)
         context["background"] = "bg-slate-100"	
         return context
+    
+class CreateJobView(CreateView):
+    template_name = "job/formJob.html"
+    model = Job
+    form_class = JobForm
+    success_url = reverse_lazy('job')
     
