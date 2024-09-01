@@ -1,24 +1,25 @@
-{%extends 'base.html'%}
+{% extends 'base.html' %}
 {% load widget_tweaks %}
-
 {% load static %}
 
-{% block header%}
-		
+
+{% block header %}
 {% endblock %}
 
 {% block content %}
-
-    <div class="h-full flex justify-end" style="background: url('https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRAiA8O_usi_aGewNv2Df_wRMxWdrZI0Pz-XKYTu0LdOuBIx-2X') center no-repeat; background-size: cover;">  
+    <div class="h-full flex justify-end" style="background: url('https://resizer.iproimg.com/unsafe/1280x/filters:format(webp):quality(70)/assets.iprofesional.com/assets/jpg/2021/03/513202.jpg') center no-repeat; background-size: cover;">  
         <div class="bg-white flex flex-col justify-center w-96 px-6">
             <div>
                 
             </div>
+            <div class="text- center mb-5">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6cIf1dEieVY2yVfLgA6YBKYKhhCYjrGcnlg&s" alt="Logo" width="535" height="200" class="mx-auto">
+            <div>
             <div>
                 <h2 class="text-center text-lg text-cyan-500">Accede con tu usuario y contraseña</h2>
                 <form method="post">
                     {% csrf_token %}
-                    <div class="mt-2 rounded" style="border: 1px solid">
+                    <div class="mt-2 rounded" style="border: 1px solid ">
                         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                             {{form.username|add_class:'w-full border-black py-2'}}
                         </div>
@@ -29,10 +30,10 @@
                             {{form.password|add_class:'w-full border-black py-2'}}
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <a class="text-center" href="#">No tienes cuenta? Registrate</a>
+                    <div class="mt-4 text-center">
+                        <a class="text-center text-black hover:text-blue-700" href="#">No tienes cuenta? Regístrate</a>
                     </div>
-                    <div>
+                    <div class= "mt-4">
                         <button class="bg-cyan-950 hover:bg-cyan-600 py-3 text-white w-full rounded" type="submit">ACCEDER</button>
                     </div>
                 </form>
