@@ -6,3 +6,4 @@ from job.models import *
 
 admin.site.register(Skills)
 admin.site.register(Mode)
+admin.site.register(Job)

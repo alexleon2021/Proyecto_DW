@@ -27,16 +27,21 @@
 
         </div>
         <div class="w-2/3">
-            <!-- Div 2 -->
             <div class="bg-white p-4">
                 <p class="text-white">Otro dato</p>
             </div>
-            <!-- Div 3 -->
             <div class="bg-white p-4 mt-4">
                 <div class="container-fluid flex-initial  bg-white rounded inline-block px-4 w-full">
                     {% for obj in object_list %}
-                    <h3>{{ obj.title }}</h3>
-                    <p>{{ obj.description }}</p>
+                    <div class="flex items-center gap-4 my-6">
+                        <div>
+                            <img src="{{ obj.company.photo.url }}" alt="sin logo" width="100rem">
+                        </div>
+                        <div>
+                            <h4>{{ obj.title|title }}</h4>
+                            <span>{{obj.company.description|title}} - {{obj.address.description}}, {{obj.address.province.description}}, {{obj.address.province.country.description}}   ({{ obj.mode.description }})</span>
+                        </div>
+                    </div>
                     {% empty%}        
                     <div class="flex items-center gap-4">
                         <div>
