@@ -8,6 +8,10 @@ urlpatterns = [
     path('job/', ListJobsView.as_view(), name="job"),
     path('create/job/', CreateJobView.as_view(), name="createjob"),
     path('job/<int:pk>/', views.JobDetailView.as_view(), name='job_detail'),
+    path('job/<int:pk>/edit/', EditJobView.as_view(), name='edit_job'),
+    path('job/<int:pk>/delete/', DeleteJobView.as_view(), name='delete_job'),
+
+
 ]
 
 if settings.DEBUG:
