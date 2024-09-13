@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView
+from django.views.generic import DetailView
+from .models import Job
 
 from job.forms import JobForm
 from .models import *
@@ -22,3 +24,8 @@ class CreateJobView(CreateView):
     form_class = JobForm
     success_url = reverse_lazy('job')
     
+
+
+class JobDetailView(DetailView):
+    model = Job
+    template_name = 'job/job_detail.html'
