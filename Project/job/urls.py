@@ -11,7 +11,6 @@ urlpatterns = [
     path('job/<int:pk>/edit/', EditJobView.as_view(), name='edit_job'),
     path('job/<int:pk>/delete/', DeleteJobView.as_view(), name='delete_job'),
 
-
 ]
 
 if settings.DEBUG:

@@ -1,7 +1,7 @@
 
 {% extends 'base.html' %}
 
-{%load static%} 
+{% load static %}
 
 {% block content %}
 <div class="container mx-auto p-4">
@@ -9,15 +9,17 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Guardar Cambios
-        </button>
-    </form>
-    <form method="post" action="{% url 'delete_job' object.pk %}" class="mt-4">
-        {% csrf_token %}
-        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-            Eliminar
-        </button>
+        <div class="flex justify-between items-center">
+            <form method="post" action="{% url 'delete_job' object.pk %}" class="mr-4">
+                {% csrf_token %}
+                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                    Eliminar
+                </button>
+            </form>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Guardar Cambios
+            </button>
+        </div>
     </form>
 </div>
 {% endblock %}
