@@ -8,7 +8,6 @@ from job.forms import JobForm
 from .models import *
 # Create your views here.
 
-
 class ListJobsView(ListView):
     model = Job
     template_name = 'job/listJob.html'
@@ -37,13 +36,8 @@ class EditJobView(UpdateView):
     success_url = reverse_lazy('job')
 
 
-from django.urls import reverse_lazy
-from django.views.generic import DeleteView
-from .models import Job
-
 class DeleteJobView(DeleteView):
     model = Job
-    template_name = 'job/confirm_delete.html' 
     success_url = reverse_lazy('job')  
 
 

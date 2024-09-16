@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 
 {%load static%} 
@@ -13,11 +12,39 @@
             Guardar Cambios
         </button>
     </form>
-    <form method="post" action="{% url 'delete_job' object.pk %}" class="mt-4">
-        {% csrf_token %}
-        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-            Eliminar
-        </button>
-    </form>
+
+    <button type="button" onclick="toggleModal('deleteModal')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4">
+        Eliminar
+    </button>
+
+
+    <div id="deleteModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+        <div class="bg-white p-8 rounded shadow-lg w-1/3">
+            <p>¿Estás seguro de que quieres eliminar este oferta</p>
+            <div class="flex justify-between mt-6">
+                <button type="button" onclick="toggleModal('deleteModal')" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                    Cancelar
+                </button>
+                <form method="post" action="{% url 'delete_job' object.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        Confirmar Eliminación
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    function toggleModal(modalID) {
+        let modal = document.getElementById(modalID);
+        if (modal) {
+            modal.classList.toggle('hidden');
+        } else {
+            console.log("Modal no encontrado");
+        }
+    }
+</script>
+
 {% endblock %}
