@@ -1,23 +1,26 @@
 {% extends 'base.html' %}
 
+{%load static%} 
+{% block title %}
+    Formulario de Trabajo
+{% endblock %}
 {% block content %}
-<div class="flex justify-center items-center h-screen bg-gray-300">
-    <div class="bg-teal-50 p-10 rounded-lg shadow-lg w-full max-w-lg">
-        <h1 class="text-2xl font-semibold mb-6 text-center">Formulario de trabajo</h1>
-        <form method="post">
+<div class="min-h-screen bg-gradient-to-r from-gray-300 to-gray-500 flex items-center justify-center">
+    <div class="container mx-auto p-4 max-w-2xl bg-lime-100 shadow-md rounded-lg mt-10">
+        <h1 class="text-3xl font-bold mb-6 text-center text-gray-700">Formulario de trabajo</h1>
+        <form method="post" class="space-y-6">
             {% csrf_token %}
-            {{ form.as_p }}
-
+            <div class="space-y-2">
+                {{ form.as_p }}
+            </div>
             <div class="flex justify-between mt-6">
-                <a href="{% url 'job' %}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                <a href="{% url 'job' %}" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded transition-all">  <!-- Estilo del botón Regresar ajustado -->
                     Regresar
                 </a>
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded transition-all">  <!-- Estilo del botón Enviar ajustado -->
                     Enviar
                 </button>
             </div>
         </form>
-    </div>
-</div>
-{% endblock %}
 
+{% endblock %}
