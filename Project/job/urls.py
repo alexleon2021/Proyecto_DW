@@ -10,11 +10,11 @@ urlpatterns = [
     path('job/<int:pk>/', views.JobDetailView.as_view(), name='job_detail'),
     path('job/<int:pk>/edit/', EditJobView.as_view(), name='edit_job'),
     path('job/<int:pk>/delete/', DeleteJobView.as_view(), name='delete_job'),
-    path('job/<int:pk>/create/', JobdescriptionView.as_view(), name='jobdescription')
+    path('jobdescription/', JobdescriptionView.as_view(), name='jobdescription')
+
     
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-
+    

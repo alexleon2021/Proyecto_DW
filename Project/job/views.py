@@ -43,7 +43,8 @@ class DeleteJobView(DeleteView):
 class JobdescriptionView(CreateView):
     model = Job
     template_name = 'job/jobdescription.html'
+    form_class = JobForm  
 
-
-
-
+class JobdescriptionView(DetailView):
+    model = Job
+    template_name = 'job/jobdescription.html'
