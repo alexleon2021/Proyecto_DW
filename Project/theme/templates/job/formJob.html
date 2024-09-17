@@ -14,12 +14,12 @@
                 {{ form.as_p }}
             </div>
             <div class="flex justify-between mt-6">
-                <a href="{% url 'job' %}" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded transition-all">  <!-- Estilo del botón Regresar ajustado -->
+                <a href="{% url 'job' %}" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded transition-all">  
                     Regresar
                 </a>
-                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded transition-all">  <!-- Estilo del botón Enviar ajustado -->
+                <a href="{% url 'jobdescription' object.pk %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded transition-all"> 
                     Enviar
-                </button>
+                </a>
             </div>
         </form>
 
