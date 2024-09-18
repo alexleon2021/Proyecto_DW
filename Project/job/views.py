@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, TemplateView
 from .models import Job
 
 
@@ -21,7 +21,10 @@ class CreateJobView(CreateView):
     template_name = "job/formJob.html"
     model = Job
     form_class = JobForm
-    success_url = reverse_lazy('job')
+    success_url = reverse_lazy('jobdescription')
+    #Si el registro se crea de manera exitosa
+    def get_success_url(self) -> str:
+        return super().get_success_url()
     
 
 
@@ -40,12 +43,11 @@ class DeleteJobView(DeleteView):
     model = Job
     success_url = reverse_lazy('job')  
 
-class JobdescriptionView(CreateView):
-    model = Job
-    template_name = 'job/jobdescription.html'
-    form_class = JobForm  
 
-class JobDescriptionView(CreateView):
-    model = Job
+
+class JobDescriptionView(TemplateView):
     template_name = 'job/jobdescription.html'
-    form_class = JobForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
