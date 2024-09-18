@@ -5,6 +5,7 @@ class JobForm(forms.ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
+        exclude = ['description']
         labels = {
             'title': 'Titulo de la Oferta',
             'mode': 'Modalidad',

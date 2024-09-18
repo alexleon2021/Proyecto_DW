@@ -23,7 +23,7 @@ class Job(models.Model):
     address = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
     position = models.ForeignKey(Position, on_delete=models.CASCADE, null=True, blank=True)
     skills = models.ForeignKey(Skills, on_delete=models.CASCADE)
-    description = models.TextField(max_length=1500)
+    description = models.TextField(max_length=1500, null=True, blank=True)
     def __str__(self):
         return f"{self.title}"
 
