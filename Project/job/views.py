@@ -45,6 +45,7 @@ class JobdescriptionView(CreateView):
     template_name = 'job/jobdescription.html'
     form_class = JobForm  
 
-class JobdescriptionView(DetailView):
+class JobDescriptionView(CreateView):
     model = Job
     template_name = 'job/jobdescription.html'
+    form_class = JobForm
