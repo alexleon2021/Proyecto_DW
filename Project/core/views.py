@@ -13,3 +13,5 @@ class CoreLoginView(LoginView):
 class RegisterView(TemplateView):
     template_name = 'core/register.html'
 
+class CoreLogoutView(LogoutView):
+    next_page = "login"
