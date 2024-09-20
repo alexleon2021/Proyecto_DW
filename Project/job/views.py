@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.forms import BaseModelForm
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, TemplateView
 from .models import Job
@@ -21,10 +23,10 @@ class CreateJobView(CreateView):
     template_name = "job/formJob.html"
     model = Job
     form_class = JobForm
-    success_url = reverse_lazy('jobdescription')
     #Si el registro se crea de manera exitosa
     def get_success_url(self) -> str:
-        return super().get_success_url()
+        return reverse_lazy('jobdescription', args=[self.object.pk])
+    
     
 
 
@@ -48,6 +50,27 @@ class DeleteJobView(DeleteView):
 class JobDescriptionView(TemplateView):
     template_name = 'job/jobdescription.html'
 
+    def get_jobId(self, **kwargs):
+        jobId = self.kwargs.get('pk')
+        return jobId
+    
+    def get_Job(self):
+        jobId = self.get_jobId()
+        job = Job.objects.get(pk=jobId)
+        return job
+    
+    def post(self, request, pk):
+        job = self.get_Job()
+        descripcion = request.POST.get("description")
+        if descripcion:
+            job.description = descripcion
+            job.save()
+            return redirect('job')
+        return
+
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['job'] = self.get_Job
         return context
+    
