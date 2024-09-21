@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{%load static%} 
+{% load static %}
 {% block title %}
     Formulario de Trabajo
 {% endblock %}
@@ -8,10 +8,22 @@
 <div class="min-h-screen bg-gradient-to-r from-gray-300 to-gray-500 flex items-center justify-center">
     <div class="container mx-auto p-4 max-w-2xl bg-lime-100 shadow-md rounded-lg mt-10">
         <h1 class="text-3xl font-bold mb-6 text-center text-gray-700">Formulario de trabajo</h1>
-        <form method="post" class="space-y-6">
+        <form method="post" class="space-y-6" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="space-y-2">
-                {{ form.as_p }}
+            <div class="space-y-4">
+                {% for field in form %}
+                    <div class="flex items-center space-x-2">
+                        <div class="w-full">
+                            {{ field.label_tag }}
+                            {{ field }}
+                        </div>
+                        {% if field.name in 'company,address,skills,position' %}
+                            <button type="button" class="openModalBtn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" data-field="{{ field.name }}">
+                                +
+                            </button>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             </div>
             <div class="flex justify-between mt-6">
                 <a href="{% url 'job' %}" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded transition-all">  
@@ -22,5 +34,88 @@
                 </button>
             </div>
         </form>
+    </div>
+</div>
 
+<!-- Modal Template -->
+<div id="addModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="mt-3 text-center">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Agregar nuevo elemento</h3>
+            <div class="mt-2 px-7 py-3">
+                <input type="text" id="newItemInput" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Ingrese nuevo elemento">
+                <div id="companyFields" class="hidden mt-2">
+                    <input type="file" id="companyImage" class="w-full px-3 py-2 border border-gray-300 rounded-lg mt-2" accept="image/*">
+                </div>
+            </div>
+            <div class="items-center px-4 py-3">
+                <button id="addItemBtn" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    Agregar
+                </button>
+            </div>
+            <div class="items-center px-4 py-3">
+                <button id="closeModalBtn" class="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const openModalBtns = document.querySelectorAll('.openModalBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const addModal = document.getElementById('addModal');
+        const addItemBtn = document.getElementById('addItemBtn');
+        const newItemInput = document.getElementById('newItemInput');
+        const companyFields = document.getElementById('companyFields');
+        let currentField = '';
+
+        openModalBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                currentField = e.target.dataset.field;
+                addModal.classList.remove('hidden');
+                if (currentField === 'company') {
+                    companyFields.classList.remove('hidden');
+                } else {
+                    companyFields.classList.add('hidden');
+                }
+            });
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            addModal.classList.add('hidden');
+            newItemInput.value = '';
+            document.getElementById('companyImage').value = '';
+        });
+
+        addItemBtn.addEventListener('click', () => {
+            const newItemValue = newItemInput.value.trim();
+            if (newItemValue) {
+                // Aquí deberías enviar una solicitud AJAX al servidor para agregar el nuevo elemento
+                // Por ahora, solo simularemos agregando la opción al select correspondiente
+                const select = document.querySelector(`select[name="${currentField}"]`);
+                const option = document.createElement('option');
+                option.value = newItemValue;
+                option.text = newItemValue;
+                select.add(option);
+                select.value = newItemValue;  // Selecciona la nueva opción
+
+                if (currentField === 'company') {
+                    const companyImage = document.getElementById('companyImage').files[0];
+                    if (companyImage) {
+                        console.log('Imagen de empresa:', companyImage.name);
+                        // Aquí deberías manejar la carga de la imagen al servidor
+                    }
+                }
+
+                // Limpia el input y cierra el modal
+                newItemInput.value = '';
+                document.getElementById('companyImage').value = '';
+                addModal.classList.add('hidden');
+            }
+        });
+    });
+</script>
 {% endblock %}
